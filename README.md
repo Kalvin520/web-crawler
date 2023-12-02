@@ -15,3 +15,7 @@
 觀察網頁的網址結構，因應需要抓多頁的應用 利用{}+ for loop來使用format函數更新
 
 - 抓取< title>的內容 利用內建html.parser BeautifulSoup()
+
+- 抓取標題< h1>< h2>...搜尋
+
+- < img>搜尋
