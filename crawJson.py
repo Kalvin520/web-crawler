@@ -13,5 +13,9 @@ with req.urlopen(request) as response:
     data = response.read().decode("utf-8")
 
 # json資料載入
+print(data)
+
+data = data.replace("])}while(1);</x>","")
 data = json.loads(data)
 print(data)
+
