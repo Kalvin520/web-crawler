@@ -1,23 +1,19 @@
 from bs4 import BeautifulSoup
-import requests 
+import requests
+from urllib.parse import urljoin
 
-web = requests.get('https://www.nkust.edu.tw/p/412-1000-2797.php', cookies={'over18':'1'})
-# 傳送 Cookies 資訊後，抓取頁面內容
-
-soup = BeautifulSoup(web.text, "html.parser")   
-# 使用 BeautifulSoup 取得網頁結構
-
+web = requests.get('https://www.nkust.edu.tw/p/412-1000-2797.php', cookies={'over18': '1'})
+soup = BeautifulSoup(web.text, "html.parser")
 imgs = soup.find_all('img')
- # 取得所有 img tag 的內容
-base_url = 'https://www.nkust.edu.tw' 
-name = 0 #圖片編號
+
+name = 0
+base_url = 'https://www.nkust.edu.tw'  # 網站的基本網址
+
 for i in imgs:
-    print(i['src'])
-# 取得所有 img 內src 的內容
-    jpg = requests.get(i["src"])   # 使用 requests 讀取圖片網址，取得圖片編碼
-    f = open(f'PIC/test_{name}.jpg', 'wb')
-    f.write(jpg.content)  # 寫入圖片的 content
-    f.close()  # 寫入完成後關閉圖片檔案
-    name = name + 1
+    img = urljoin(base_url, i['src'])  # 轉換相對網址為絕對網址
+    print(img)
+    img_data = requests.get(img).content # 下載圖片的內容
 
-
+    with open(f'img/test_{name}.jpg', 'wb') as f:
+        f.write(img_data)  # 寫入圖片的內容
+    name += 1
