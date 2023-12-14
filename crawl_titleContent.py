@@ -1,11 +1,20 @@
-import requests
 from bs4 import BeautifulSoup
+import requests
+import bs4
+import urllib.request as req
 
-url = "https://water.taiwanstat.com/"
-web = requests.get(url) #取得網站內容
-soup = BeautifulSoup(web.text,"html.parser") #轉換成標籤樹
-title = soup.title # 取得 title
-print(soup)
-print(title) # 印出 title ( 台灣水庫即時水情 )
-# with open('./taiwaiWater.html','w',encoding='utf-8') as tw:
-#     tw.write(web.text)
+url = "https://spa1.scrape.center/"
+
+# 降低被拒絕訪問顧增加headers設定
+request = req.Request(url, headers={
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36"})
+
+# 處理中文字,避免中文出現亂碼
+with req.urlopen(request) as response:
+    data = response.read().decode("utf-8")
+
+
+# 使用剖析方法"html.parser"
+root = BeautifulSoup(data, "html.parser")
+# 搜尋HTML中<div class="title">
+print(root)

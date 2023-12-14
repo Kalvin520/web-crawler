@@ -1,15 +1,15 @@
 from bs4 import BeautifulSoup
-import requests 
+import requests
 
 web = requests.get('https://www.nkust.edu.tw/p/412-1000-2797.php', cookies={'over18':'1'})
 # 傳送 Cookies 資訊後，抓取頁面內容
 
-soup = BeautifulSoup(web.text, "html.parser")   
+soup = BeautifulSoup(web.text, "html.parser")
 # 使用 BeautifulSoup 取得網頁結構
 
 imgs = soup.find_all('img')
  # 取得所有 img tag 的內容
-base_url = 'https://www.nkust.edu.tw' 
+base_url = 'https://www.nkust.edu.tw'
 name = 0 #圖片編號
 for i in imgs:
     print(i['src'])

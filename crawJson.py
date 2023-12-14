@@ -1,5 +1,4 @@
 import urllib.request as req
-import json
 
 # 爬取網址
 url = "https://spa1.scrape.center/api/movie/?limit=10&offset=0"
@@ -14,8 +13,9 @@ with req.urlopen(request) as response:
 
 # json資料載入
 print(data)
-
+import json
 data = data.replace("])}while(1);</x>","")
 data = json.loads(data)
 print(data)
+
 
